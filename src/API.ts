@@ -5,6 +5,11 @@ export class API {
         const app = express();
         const port = process.env.PORT || 80;
         app.use(express.json());
+
+        app.get('/', (req, res) => {
+            res.send('Hello world!');
+        });
+
         app.get('/api/:date?', (req, res) => {
             const date = req.params.date;
             if (!date) {
