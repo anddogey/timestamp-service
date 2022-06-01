@@ -7,7 +7,6 @@ export class API {
         app.use(express.json());
         app.get('/api/:date?', (req, res) => {
             const date = req.params.date;
-
             if (!date) {
                 res.json({
                     unix: new Date().getTime(),
@@ -15,15 +14,16 @@ export class API {
                 });
                 return;
             }
-            if (isNaN(Date.parse(date))) {
+            const dateNumber = parseInt(date);
+            if (isNaN(dateNumber) || !(new Date(dateNumber) instanceof Date)) {
                 res.json({
                     error: 'Invalid Date',
                 });
                 return;
             }
             res.json({
-                unix: new Date(date).getTime(),
-                utc: new Date(date).toString(),
+                unix: new Date(dateNumber).getTime(),
+                utc: new Date(dateNumber).toString(),
             });
         });
 
