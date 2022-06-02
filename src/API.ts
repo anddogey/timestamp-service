@@ -13,23 +13,38 @@ export class API {
         });
 
         app.get('/api/:date?', (req, res) => {
-            const date = req.params.date;
-            if (!date) {
+            const dateParam = req.params.date;
+            if (!dateParam) {
+                const now = new Date();
                 res.json({
-                    unix: new Date().getTime(),
-                    utc: new Date().toUTCString(),
+                    unix: now.getTime(),
+                    utc: now.toUTCString(),
                 });
                 return;
             }
-            if (!(new Date(date) instanceof Date)) {
+            if (/^[0-9]+$/g.test(dateParam)) {
+                const dateParamAsNumber = parseInt(dateParam);
+                if (!(new Date(dateParamAsNumber) instanceof Date)) {
+                    res.json({
+                        error: 'Invalid Date',
+                    });
+                    return;
+                }
+                res.json({
+                    unix: new Date(dateParamAsNumber).getTime(),
+                    utc: new Date(dateParamAsNumber).toUTCString(),
+                });
+                return;
+            }
+            if (!(new Date(dateParam) instanceof Date)) {
                 res.json({
                     error: 'Invalid Date',
                 });
                 return;
             }
             res.json({
-                unix: new Date(date).getTime(),
-                utc: new Date(date).toUTCString(),
+                unix: new Date(dateParam).getTime(),
+                utc: new Date(dateParam).toUTCString(),
             });
         });
 
