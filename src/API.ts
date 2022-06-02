@@ -15,7 +15,7 @@ export class API {
             if (!date) {
                 res.json({
                     unix: new Date().getTime(),
-                    utc: new Date().toString(),
+                    utc: new Date().toUTCString(),
                 });
                 return;
             }
@@ -27,7 +27,7 @@ export class API {
             }
             res.json({
                 unix: new Date(date).getTime(),
-                utc: new Date(date).toString(),
+                utc: new Date(date).toUTCString(),
             });
         });
 
