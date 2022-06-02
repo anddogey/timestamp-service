@@ -1,10 +1,12 @@
 import express from 'express';
+import cors from 'cors';
 
 export class API {
     static start() {
         const app = express();
         const port = process.env.PORT || 80;
         app.use(express.json());
+        app.use(cors({ optionsSuccessStatus: 200 }));
 
         app.get('/', (req, res) => {
             res.send('Hello world!');
