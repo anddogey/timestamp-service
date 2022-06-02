@@ -36,7 +36,7 @@ export class API {
                 });
                 return;
             }
-            if (!(new Date(dateParam) instanceof Date)) {
+            if (new Date(dateParam).toString() === 'Invalid Date') {
                 res.json({
                     error: 'Invalid Date',
                 });
