@@ -19,16 +19,15 @@ export class API {
                 });
                 return;
             }
-            const dateNumber = parseInt(date);
-            if (isNaN(dateNumber) || !(new Date(dateNumber) instanceof Date)) {
+            if (!(new Date(date) instanceof Date)) {
                 res.json({
                     error: 'Invalid Date',
                 });
                 return;
             }
             res.json({
-                unix: new Date(dateNumber).getTime(),
-                utc: new Date(dateNumber).toString(),
+                unix: new Date(date).getTime(),
+                utc: new Date(date).toString(),
             });
         });
 
